@@ -33,6 +33,7 @@ func main() {
 		ts.Execute(w, pageData{Title: "Home Page", Content: toPrint})
 	})
 
+	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./ui/static"))))
 	err := http.ListenAndServe(":8080", router)
 
 	if err != nil {
