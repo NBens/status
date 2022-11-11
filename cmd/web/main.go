@@ -5,8 +5,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
-	"github.com/NBens/status/internal/helpers"
 )
 
 type pageData struct {
@@ -29,7 +27,7 @@ func main() {
 		}
 
 		URL := "https://google.com"
-		statusCode := helpers.Ping(URL, 10)
+		statusCode := Ping(URL, 10)
 		toPrint := fmt.Sprintf("Status code for %s is %d", URL, statusCode)
 
 		ts.Execute(w, pageData{Title: "Home Page", Content: toPrint})
