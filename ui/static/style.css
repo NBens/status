@@ -1,3 +1,7 @@
+:root {
+    --color-primary: #3498db; /* brand color */
+    --color-success: #27ae60;
+  }
 body {
-    background-color: aliceblue;
+    background-color: #fff;
 }
