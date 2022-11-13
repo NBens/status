@@ -24,7 +24,7 @@ func main() {
 	}
 
 	startingUrls := make(map[string][]URL)
-	startingUrls["Category Something"] = []URL{URL{Url: "https://koora.com", StatusCode: 200}}
+	startingUrls["Category Something"] = []URL{{Url: "https://koora.com", StatusCode: 200}}
 	app := application{
 		urlsList:      startingUrls,
 		templateCache: templateCache,
