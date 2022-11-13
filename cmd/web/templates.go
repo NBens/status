@@ -7,7 +7,8 @@ import (
 )
 
 type pageData struct {
-	URLs []string
+	URLs  []string
+	Flash string
 }
 
 func newTemplateCache() (map[string]*template.Template, error) {
@@ -23,6 +24,11 @@ func newTemplateCache() (map[string]*template.Template, error) {
 		ts, err := template.New(name).Funcs(template.FuncMap{
 			"IsLast": func(i, size int) bool { return i == size-1 },
 		}).ParseFiles("./ui/html/base.html")
+		if err != nil {
+			return nil, err
+		}
+
+		ts, err = ts.ParseGlob("./ui/html/partials/*.html")
 		if err != nil {
 			return nil, err
 		}

@@ -1,0 +1,27 @@
+{{define "title"}}Add Website{{end}}
+{{define "content"}}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        {{ with .Flash}}
+        <div class="flash">
+            {{.}}
+        </div>
+        {{end}}
+        <div class="card">
+            <header>
+                <h4>Add Website</h4>
+            </header>
+            <hr />
+            
+            <form action="/add" method="POST">
+                <p>
+                    <label for="url">URL:</label>
+                    <input id="url" type="url" name="url" placeholder="https://example.com">
+                </p>
+                <input type="submit" class="button primary" value="Add!">
+            </form>
+        </div>
+    </div>
+</div>
+{{end}}

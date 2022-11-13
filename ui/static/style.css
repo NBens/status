@@ -1,7 +1,12 @@
 :root {
     --color-primary: #3498db; /* brand color */
     --color-success: #27ae60;
-  }
-body {
-    background-color: #fff;
+}
+
+div.flash {
+    color: #FFFFFF;
+    background-color: #34495E;
+    padding: 18px;
+    margin-bottom: 36px;
+    text-align: center;
 }
