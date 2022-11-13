@@ -1,0 +1,39 @@
+{{define "title"}}Home Page{{end}}
+{{define "content"}}
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <h2>
+            <a href="https://kooora.com" class="text-dark">Kooora</a>
+            <a class="button outline pull-right">Subscribe for updates</a>
+        </h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card bg-success bd-success text-white">
+            <p class="is-center">All systems are operational</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <div class="card">
+            <header>
+                <h5>Category 1 <span class="pull-right">Operational</span></h5>
+            </header>
+            <hr />
+            <!-- <p style="border-bottom: 0.5px solid #bdc3c7; padding-bottom:15px;">- <span class="pull-right"><img src="https://icongr.am/feather/check.svg?size=24&amp;color=2ecc71" alt="icon"></span></p>
+                    <p style="border-bottom: 0.5px solid #bdc3c7; padding-bottom:15px;">-  <span class="pull-right"><img src="https://icongr.am/feather/check.svg?size=24&amp;color=2ecc71" alt="icon"></span></p>
+                    <p style="padding-bottom:8px;">-  <span class="pull-right"><img src="https://icongr.am/feather/alert-circle.svg?size=24&amp;color=e74c3c" alt="icon"></span></p> -->
+            {{range $i, $value := .URLs}}
+            <p {{if not (IsLast $i (len $.URLs))}}style="border-bottom: 0.5px solid #bdc3c7; padding-bottom:15px;"
+                {{end}}>- {{ $value }} <span class="pull-right"><img
+                        src="https://icongr.am/feather/check.svg?size=24&amp;color=2ecc71" alt="icon"></span></p>
+            {{end}}
+        </div>
+    </div>
+</div>
+{{end}}

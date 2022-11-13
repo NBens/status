@@ -1,40 +1,29 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 )
 
-type pageData struct {
-	Title   string
-	Content string
+type application struct {
+	urlsList      []string
+	templateCache map[string]*template.Template
 }
 
 func main() {
-	router := http.NewServeMux()
 
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" {
-			http.NotFound(w, r)
-			return
-		}
-		w.WriteHeader(200)
-		ts, err := template.ParseFiles("./ui/html/index.html")
-		if err != nil {
-			log.Fatal("Couldn't parse templates", err)
-		}
+	templateCache, err := newTemplateCache()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-		URL := "https://google.com"
-		statusCode := Ping(URL, 10)
-		toPrint := fmt.Sprintf("Status code for %s is %d", URL, statusCode)
+	app := application{
+		urlsList:      []string{"https://koora.com", "https://google.com"},
+		templateCache: templateCache,
+	}
 
-		ts.Execute(w, pageData{Title: "Home Page", Content: toPrint})
-	})
-
-	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./ui/static"))))
-	err := http.ListenAndServe(":8080", router)
+	err = http.ListenAndServe(":8080", app.router())
 
 	if err != nil {
 		log.Fatal("Couldn't start server:", err)
