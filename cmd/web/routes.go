@@ -32,7 +32,8 @@ func (app *application) router() http.Handler {
 				log.Println("Couldn't parse form", form)
 			}
 			url := r.Form.Get("url")
-			app.urlsList = append(app.urlsList, url)
+			category := r.Form.Get("category")
+			app.urlsList[category] = append(app.urlsList[category], URL{Url: url, StatusCode: 0})
 			w.WriteHeader(200)
 			app.render(w, "newsite.html", pageData{URLs: app.urlsList, Flash: "The website has been added successfully"})
 		}

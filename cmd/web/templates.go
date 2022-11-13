@@ -7,7 +7,7 @@ import (
 )
 
 type pageData struct {
-	URLs  []string
+	URLs  map[string][]URL
 	Flash string
 }
 
