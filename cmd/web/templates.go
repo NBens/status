@@ -11,6 +11,14 @@ type pageData struct {
 	Flash string
 }
 
+func IsLast(i, size int) bool {
+	return i == size-1
+}
+
+var functions = template.FuncMap{
+	"IsLast": IsLast,
+}
+
 func newTemplateCache() (map[string]*template.Template, error) {
 
 	cache := make(map[string]*template.Template)
@@ -21,9 +29,7 @@ func newTemplateCache() (map[string]*template.Template, error) {
 
 	for _, file := range files {
 		name := filepath.Base(file)
-		ts, err := template.New(name).Funcs(template.FuncMap{
-			"IsLast": func(i, size int) bool { return i == size-1 },
-		}).ParseFiles("./ui/html/base.html")
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.html")
 		if err != nil {
 			return nil, err
 		}
