@@ -20,7 +20,7 @@
             <hr />
             {{range $i, $url := $value}}         
             <p {{if not (IsLast $i (len $value))}}style="border-bottom: 0.5px solid #bdc3c7; padding-bottom:15px;"{{end}}>
-                - {{ $url.Url }} ({{$url.StatusCode}}) <span class="pull-right"><img src="https://icongr.am/feather/check.svg?size=24&amp;color=2ecc71" alt="icon"></span>
+                - {{ $url.Url }} ({{$url.StatusCode}}) <span class="pull-right"><img src="/static/check.svg" alt="icon"><img src="/static/alert-circle.svg" alt="icon"></span>
             </p>
             {{end}}
         </div>

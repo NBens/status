@@ -37,7 +37,7 @@ func main() {
 		errLogger:     errLogger,
 	}
 
-	err = http.ListenAndServe(":8080", app.router())
+	err = http.ListenAndServe(":8080", app.logRequest(secureHeaders(app.router())))
 
 	if err != nil {
 		log.Fatal("Couldn't start server:", err)
