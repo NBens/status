@@ -13,6 +13,6 @@ func (app *application) render(w http.ResponseWriter, temp string, data pageData
 	}
 	if err := ts.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		log.Println(err)
+		app.errLogger.Println(err)
 	}
 }
