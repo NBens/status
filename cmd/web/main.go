@@ -20,16 +20,16 @@ type application struct {
 }
 
 func main() {
+	infoLogger := log.New(os.Stdout, "[INFO]", log.Ldate|log.Ltime)
+	errLogger := log.New(os.Stderr, "[ERROR]", log.Ldate|log.Ltime|log.Lshortfile)
 
 	templateCache, err := newTemplateCache()
 	if err != nil {
-		log.Fatal(err)
+		errLogger.Fatal(err)
 	}
 
 	startingUrls := make(map[string][]URL)
 
-	infoLogger := log.New(os.Stdout, "[INFO]", log.Ldate|log.Ltime)
-	errLogger := log.New(os.Stderr, "[ERROR]", log.Ldate|log.Ltime|log.Lshortfile)
 	app := application{
 		urlsList:      startingUrls,
 		templateCache: templateCache,
@@ -40,7 +40,7 @@ func main() {
 	err = http.ListenAndServe(":8080", app.logRequest(secureHeaders(app.router())))
 
 	if err != nil {
-		log.Fatal("Couldn't start server:", err)
+		errLogger.Fatal("Couldn't start server:", err)
 	}
 
 }
