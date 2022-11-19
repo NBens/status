@@ -29,6 +29,7 @@ func main() {
 	}
 
 	startingUrls := make(map[string][]URL)
+	startingUrls["Demo"] = append(startingUrls["Demo"], URL{Url: "https://google.com", StatusCode: 0}) // Adding demo data for testing
 
 	app := application{
 		urlsList:      startingUrls,
