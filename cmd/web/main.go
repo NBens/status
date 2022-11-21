@@ -44,4 +44,10 @@ func main() {
 		errLogger.Fatal("Couldn't start server:", err)
 	}
 
+	for _, value := range app.urlsList {
+		for _, url := range value {
+			go Ping(url.Url, 10)
+		}
+	}
+
 }
