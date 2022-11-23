@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 type URL struct {
@@ -38,16 +40,14 @@ func main() {
 		errLogger:     errLogger,
 	}
 
-	err = http.ListenAndServe(":8080", app.logRequest(secureHeaders(app.router())))
+	port := flag.Int("port", 8080, "The application port")
+
+	flag.Parse()
+
+	err = http.ListenAndServe(":"+strconv.Itoa(*port), app.logRequest(secureHeaders(app.router())))
 
 	if err != nil {
 		errLogger.Fatal("Couldn't start server:", err)
-	}
-
-	for _, value := range app.urlsList {
-		for _, url := range value {
-			go Ping(url.Url, 10)
-		}
 	}
 
 }
