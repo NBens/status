@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
+	"time"
 )
 
 type URL struct {
@@ -19,6 +21,7 @@ type application struct {
 	templateCache map[string]*template.Template
 	infoLogger    *log.Logger
 	errLogger     *log.Logger
+	mu            *sync.Mutex
 }
 
 func main() {
@@ -48,6 +51,21 @@ func main() {
 
 	if err != nil {
 		errLogger.Fatal("Couldn't start server:", err)
+	}
+
+	for {
+		for _, value := range app.urlsList {
+			for _, url := range value {
+				go func(rl *URL) {
+					statusCode := Ping(rl.Url, 5)
+					app.mu.Lock()
+					rl.StatusCode = statusCode
+					app.mu.Unlock()
+					app.infoLogger.Println("Scraping", rl.Url)
+				}(&url)
+			}
+		}
+		time.Sleep(60 * time.Second)
 	}
 
 }
